@@ -35,12 +35,12 @@ public class Attack : MonoBehaviour {
 
     void Update() {
 
-        Instantiate(bullet, this.transform.position, this.transform.rotation);
+        
         // get length of vector
         distanceToTarget = (target.transform.position - this.transform.position).magnitude;
         Debug.Log(distanceToTarget);
         // this is a very simple state machine to change the rocket's behavior
-        if (distanceToTarget > 5) { 
+        if (distanceToTarget > 10) { 
             state = "ATTACK"; 
         } else if (distanceToTarget < 2) { 
             state = "RETREAT"; 
@@ -48,9 +48,18 @@ public class Attack : MonoBehaviour {
         
         if (state == "ATTACK") { 
             LookAt2D(target.transform.position); 
-            this.transform.Translate(Vector3.up * flightSpeed); 
+            this.transform.Translate(Vector3.up * flightSpeed);
+            Vector3 vectorToTarget = target.transform.position - this.transform.position;
+            if (Vector3.Angle(vectorToTarget, this.transform.up) < 60)
+
+            {
+
+                Instantiate(bullet, this.transform.position, this.transform.rotation); //this is the line that moved to here
+
+            }
         } else { 
             this.transform.Translate(Vector3.up * flightSpeed); 
+
         } 
     }
 }
