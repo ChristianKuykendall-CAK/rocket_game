@@ -7,6 +7,8 @@ public class Attack : MonoBehaviour {
     public float turnSpeed = 5.0f;
     public float flightSpeed = 0.1f;
 
+    public GameObject bullet;
+
     float distanceToTarget;
     string state = "ATTACK";
 
@@ -32,7 +34,8 @@ public class Attack : MonoBehaviour {
     }
 
     void Update() {
-        
+
+        Instantiate(bullet, this.transform.position, this.transform.rotation);
         // get length of vector
         distanceToTarget = (target.transform.position - this.transform.position).magnitude;
         Debug.Log(distanceToTarget);
